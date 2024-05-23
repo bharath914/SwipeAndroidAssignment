@@ -1,0 +1,3 @@
+package com.bharath.swipeandroidassignment.presentation.adapters
+
+class HomeListAdapter
