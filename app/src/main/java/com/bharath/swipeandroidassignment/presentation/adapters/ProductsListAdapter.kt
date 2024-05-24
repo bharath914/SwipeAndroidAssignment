@@ -12,8 +12,8 @@ import com.bharath.swipeandroidassignment.R
 import com.bharath.swipeandroidassignment.data.entity.local.ProductEntity
 import com.bumptech.glide.Glide
 
-class HomeListAdapter :
-    ListAdapter<ProductEntity, HomeListAdapter.MyViewHolder>(HomeListCallBack()) {
+class ProductsListAdapter :
+    ListAdapter<ProductEntity, ProductsListAdapter.MyViewHolder>(HomeListCallBack()) {
     inner class MyViewHolder(itemView: View) : ViewHolder(itemView) {
 
         private val imageView: ImageView = itemView.findViewById(R.id.item_image)
@@ -27,8 +27,8 @@ class HomeListAdapter :
             ).error(R.drawable.picture)
                 .override(200, 200)
                 .into(imageView)
-            name.text = entity.productName
-            type.text = entity.productType
+            name.text = entity.productName.trim()
+            type.text = entity.productType.trim()
             price.text = "${entity.price}"
 
         }

@@ -9,6 +9,13 @@ package com.bharath.swipeandroidassignment.data.common
  * @property message A message describing the resource state. It can be null.
  */
 sealed class Resource<T>(val data: T? = null, val message: String? = null) {
+    /**
+     * Represents that user just had opened the app for first time / cleared the data.
+     */
+
+
+    class NotCached<T> : Resource<T>()
+
 
     /**
      * Represents a successful state of the resource.
@@ -17,7 +24,6 @@ sealed class Resource<T>(val data: T? = null, val message: String? = null) {
      * @property data The data associated with the resource.
      */
 
-    class NotCached<T> : Resource<T>()
 
     class Success<T>(data: T) : Resource<T>(data)
 

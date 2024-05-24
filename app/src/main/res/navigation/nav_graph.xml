@@ -12,11 +12,23 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_bottomSheetFrag"
-            app:destination="@id/bottomSheetFrag" />
+            app:destination="@id/bottomSheetFrag"
+            app:enterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchScreen"
+            app:destination="@id/searchScreen"
+            app:enterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down" />
     </fragment>
     <dialog
         android:id="@+id/bottomSheetFrag"
         android:name="com.bharath.swipeandroidassignment.presentation.fragments.dialog.BottomSheetFrag"
         android:label="fragment_bottom_sheet"
         tools:layout="@layout/fragment_bottom_sheet" />
+    <fragment
+        android:id="@+id/searchScreen"
+        android:name="com.bharath.swipeandroidassignment.presentation.fragments.search.SearchScreen"
+        android:label="fragment_search_screen"
+        tools:layout="@layout/fragment_search_screen" />
 </navigation>

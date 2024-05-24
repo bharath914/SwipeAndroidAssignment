@@ -20,9 +20,10 @@ class GetProductsUseCase(
             val isEmpty = localProductsRepository.checkIfEmpty().filterNotNull().first() == 0
             if (isEmpty) emit(Resource.NotCached())
 
-            if (isRefresh) emit(Resource.Loading())
             if (isEmpty || isRefresh) {
+                emit(Resource.Loading())
                 val result = remoteProductsRepo.getProducts()
+                localProductsRepository.clearAllProducts()
                 val mapped = result.toEntity()
                 localProductsRepository.upsertProductEntityList(mapped)
                 emit(Resource.Success(mapped))

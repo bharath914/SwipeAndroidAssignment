@@ -1,11 +1,13 @@
 package com.bharath.swipeandroidassignment.presentation.fragments.home
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bharath.swipeandroidassignment.data.common.Resource
 import com.bharath.swipeandroidassignment.data.entity.local.ProductEntity
 import com.bharath.swipeandroidassignment.domain.usecases.GetProductsUseCase
+import com.bharath.swipeandroidassignment.helpers.isNetworkAvailable
 import com.bharath.swipeandroidassignment.presentation.states.ListState
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,9 +24,22 @@ class HomeViewModel(
     private val _productsListState = MutableStateFlow(ListState<ProductEntity>())
     val productsListState = _productsListState.asStateFlow()
 
-    fun getData(isRefresh: Boolean = false) {
+
+    private val _connectedToNet = MutableStateFlow(true)
+    val connectedToNet = _connectedToNet.asStateFlow()
+
+    fun getData(isRefresh: Boolean = false, context: Context) {
+
+
         viewModelScope.launch(IO) {
-            getProductsUseCase(isRefresh).onEach { resource ->
+            val connected = isNetworkAvailable(context)
+            if (!connected) {
+                _connectedToNet.update { false }
+            }
+
+
+
+            getProductsUseCase(isRefresh && connected).onEach { resource ->
                 when (resource) {
                     is Resource.Error -> {
                         _productsListState.update {
@@ -51,8 +66,10 @@ class HomeViewModel(
                             ListState(isNotCached = true)
                         }
                     }
+
                 }
             }.collect()
         }
+
     }
 }

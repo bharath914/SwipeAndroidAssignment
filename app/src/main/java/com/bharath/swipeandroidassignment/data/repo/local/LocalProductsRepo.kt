@@ -17,6 +17,12 @@ class ProductsRepositoryImpl(
 
     }
 
+    override suspend fun clearAllProducts() {
+        withContext(Dispatchers.IO) {
+            dao.deleteEverything()
+        }
+    }
+
     override suspend fun upsertProductEntityList(entities: List<ProductEntity>) {
         withContext(Dispatchers.IO) {
             dao.upsertProductEntityList(entities)

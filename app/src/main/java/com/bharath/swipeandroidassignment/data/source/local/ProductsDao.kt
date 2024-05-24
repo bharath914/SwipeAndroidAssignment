@@ -26,4 +26,7 @@ interface ProductsDao {
 
     @Query("select Count(*) from ProductEntity ")
     fun checkIfEmpty(): Flow<Int>
+
+    @Query("delete from ProductEntity")
+    fun deleteEverything()
 }

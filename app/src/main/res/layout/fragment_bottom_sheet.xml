@@ -1,49 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/rounded_background"
+    android:elevation="150dp"
+
     tools:context=".presentation.fragments.dialog.BottomSheetFrag">
 
+
+    <ImageView
+        android:id="@+id/maximizeIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/baseline_maximize_24" />
+
     <LinearLayout
+        android:id="@+id/linearLayout1BottomSheet"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_below="@id/maximizeIcon"
         android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="8dp"
+        android:background="@drawable/details_background"
         android:orientation="vertical"
+        android:padding="8dp">
 
-        >
-
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:hint="Enter the Name of Product" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:hint="Enter the Price of Product" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:hint="Enter the Type of Product" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:hint="Enter the Name of Product" />
-
-        <com.google.android.material.button.MaterialButton
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Post" />
+            android:fontFamily="@font/roboto_medium"
+            android:text="Details"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/input_product_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="6dp"
+            android:background="@drawable/edit_text_background"
+            android:fontFamily="@font/roboto_medium"
+            android:hint="Name of Product"
+
+            android:padding="16dp"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/input_price_of_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginVertical="6dp"
+            android:autofillHints="name"
+            android:background="@drawable/edit_text_background"
+            android:fontFamily="@font/roboto_medium"
+            android:hint="Price of Product"
+
+            android:padding="16dp"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/input_type_of_product"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="6dp"
+            android:background="@drawable/edit_text_background"
+            android:fontFamily="@font/roboto_medium"
+
+            android:hint="Type of Product"
+            android:padding="16dp"
+            android:textSize="14sp" />
+
+
+        <EditText
+            android:id="@+id/input_tax_percentage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="6dp"
+            android:background="@drawable/edit_text_background"
+            android:fontFamily="@font/roboto_medium"
+            android:hint="Enter Tax Percentage"
+            android:inputType="numberDecimal"
+            android:padding="16dp"
+            android:textSize="14sp" />
+
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2BottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearLayout1BottomSheet"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="8dp"
+        android:background="@drawable/details_background"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:weightSum="3">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center_vertical|start"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Add Images"
+
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/addImageFiles"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center_vertical|end"
+                android:src="@drawable/add_icon" />
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/imageRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/images_list_item" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/postButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearLayout2BottomSheet"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="8dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="8dp"
+        android:text="Post"
+        android:textColor="@color/md_theme_onPrimary"
+        app:backgroundTint="@color/md_theme_primary" />
 
 
 </RelativeLayout>

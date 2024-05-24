@@ -17,3 +17,14 @@ data class ProductEntity(
     @SerialName("product_type") val productType: String,
     @SerialName("tax") val tax: Double,
 )
+
+fun ProductEntity.doesMatchesQuery(query: String): Boolean {
+    val combinations = listOf(
+        productName,
+        productType,
+        price.toString()
+    )
+    return combinations.any {
+        it.contains(query, true)
+    }
+}
