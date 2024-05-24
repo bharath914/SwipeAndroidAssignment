@@ -16,8 +16,11 @@ class GetProductsUseCase(
 ) {
     operator fun invoke(isRefresh: Boolean = false): Flow<Resource<List<ProductEntity>>> = flow {
         try {
-            emit(Resource.Loading())
+
             val isEmpty = localProductsRepository.checkIfEmpty().filterNotNull().first() == 0
+            if (isEmpty) emit(Resource.NotCached())
+
+            if (isRefresh) emit(Resource.Loading())
             if (isEmpty || isRefresh) {
                 val result = remoteProductsRepo.getProducts()
                 val mapped = result.toEntity()

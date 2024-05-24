@@ -16,6 +16,9 @@ sealed class Resource<T>(val data: T? = null, val message: String? = null) {
      * @param T The type of data associated with the resource.
      * @property data The data associated with the resource.
      */
+
+    class NotCached<T> : Resource<T>()
+
     class Success<T>(data: T) : Resource<T>(data)
 
     /**

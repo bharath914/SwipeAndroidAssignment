@@ -1,4 +1,4 @@
-package com.bharath.swipeandroidassignment.presentation.fragments
+package com.bharath.swipeandroidassignment.presentation.fragments.home
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -40,8 +40,15 @@ class HomeViewModel(
 
                     is Resource.Success -> {
                         _productsListState.update {
-                            Log.d("Products", "getData: ${resource.data} ")
+                            Log.d("Products", "got the : ${resource.data} ")
                             ListState(list = resource.data ?: emptyList())
+
+                        }
+                    }
+
+                    is Resource.NotCached -> {
+                        _productsListState.update {
+                            ListState(isNotCached = true)
                         }
                     }
                 }

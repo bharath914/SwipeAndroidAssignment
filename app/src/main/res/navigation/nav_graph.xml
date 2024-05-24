@@ -7,7 +7,16 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.bharath.swipeandroidassignment.presentation.fragments.HomeFragment"
+        android:name="com.bharath.swipeandroidassignment.presentation.fragments.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_bottomSheetFrag"
+            app:destination="@id/bottomSheetFrag" />
+    </fragment>
+    <dialog
+        android:id="@+id/bottomSheetFrag"
+        android:name="com.bharath.swipeandroidassignment.presentation.fragments.dialog.BottomSheetFrag"
+        android:label="fragment_bottom_sheet"
+        tools:layout="@layout/fragment_bottom_sheet" />
 </navigation>
