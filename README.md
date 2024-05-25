@@ -42,4 +42,11 @@ In this project I used
 
 ### Contact Information 
 email : bharathayinala@gmail.com
+
 phone : +917093219037
+
+<a href="https://linkedin.com/in/bharathayinala7" target="blank"><img align="center"
+            src="https://logopng.com.br/logos/linkedin-83.png"
+            width="40" /></a>
+    <a href="https://instagram.com/_bharath914_" target="blank"><img align="center"
+            src="https://img.icons8.com/?size=512&id=43625&format=png" alt="_bharath914_" height="40" width="40" /></a>
