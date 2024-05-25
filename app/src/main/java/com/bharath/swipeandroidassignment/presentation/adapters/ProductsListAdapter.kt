@@ -14,6 +14,7 @@ import com.bharath.swipeandroidassignment.data.entity.local.ProductEntity
 import com.bharath.swipeandroidassignment.helpers.Validators
 import com.bharath.swipeandroidassignment.helpers.toIndianNumberSystem
 import com.bumptech.glide.Glide
+import java.util.Locale
 
 class ProductsListAdapter(
     private val listener: OnClickListener,
@@ -52,7 +53,9 @@ class ProductsListAdapter(
             }
             price.text = buildString {
                 append("₹")
-                append(entity.price.toString().toIndianNumberSystem())
+                append(
+                    String.format(Locale.getDefault(), "%.2f", entity.price).toIndianNumberSystem()
+                )
             }
             tax.text = buildString {
                 append("Tax: ")

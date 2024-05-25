@@ -140,7 +140,7 @@ class HomeFragment : Fragment(), OnClickListener {
                 progress.stopShimmer()
                 recycler.visibility = View.VISIBLE
                 lifecycleScope.launch {
-                    if (adapter.currentList.size != state.list.size) {
+                    if (adapter.currentList.isEmpty() || adapter.currentList.first() != state.list.first()) {
                         adapter.submitNewList(state.list)
                     }
                 }
