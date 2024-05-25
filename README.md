@@ -1,6 +1,8 @@
 ### Project Architecture
 Please read this Readme File before evaluating codebase.
 
+**Install App From here** : https://drive.google.com/file/d/17EtJ7v4WqX9yyhlCP9SktEuRtKGEf0ZR/view?usp=drive_link
+
 MVVM + CLEAN Principles
 
 The Code base is neatly **Documented**
