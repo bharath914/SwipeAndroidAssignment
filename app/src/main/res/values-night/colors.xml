@@ -1,6 +1,6 @@
 <resources>
     <color name="transparent">#00FFFFFF</color>
-
+    <color name="shimmerColor">#C2C2C2</color>
     <color name="md_theme_primary">#CFBDFE</color>
     <color name="md_theme_onPrimary">#36275D</color>
     <color name="md_theme_primaryContainer">#4D3D75</color>

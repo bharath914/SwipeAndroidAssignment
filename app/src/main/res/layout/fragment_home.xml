@@ -61,12 +61,43 @@
             </LinearLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/TopBar"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <include layout="@layout/layout_shimmer_list_item" />
+
+                <include layout="@layout/layout_shimmer_list_item" />
+
+                <include layout="@layout/layout_shimmer_list_item" />
+
+                <include layout="@layout/layout_shimmer_list_item" />
+
+                <include layout="@layout/layout_shimmer_list_item" />
+
+                <include layout="@layout/layout_shimmer_list_item" />
+
+                <include layout="@layout/layout_shimmer_list_item" />
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/TopBar"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -75,15 +106,16 @@
             tools:layout_editor_absoluteY="1dp"
             tools:listitem="@layout/list_item" />
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/progressBar"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_centerVertical="true"
-            android:layout_marginHorizontal="25dp"
-            android:indeterminate="true"
-            android:visibility="visible"
-            app:trackCornerRadius="20dp" />
+        <!--        <com.google.android.material.progressindicator.LinearProgressIndicator-->
+        <!--            android:id="@+id/progressBar"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="25dp"-->
+        <!--            android:layout_centerVertical="true"-->
+        <!--            android:layout_marginHorizontal="25dp"-->
+        <!--            android:indeterminate="true"-->
+        <!--            android:visibility="visible"-->
+        <!--            app:trackCornerRadius="20dp" />-->
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton"

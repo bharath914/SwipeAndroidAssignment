@@ -55,6 +55,7 @@ class GetProductsUseCase(
                 val local =
                     localProductsRepository.getAllProductEntityList().filterNotNull().first()
                 // if we already cached and no refresh required then we emit the cached data.
+
                 emit(Resource.Success(local))
             }
         } catch (e: Exception) {

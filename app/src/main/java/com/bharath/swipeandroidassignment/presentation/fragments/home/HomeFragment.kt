@@ -19,8 +19,8 @@ import com.bharath.swipeandroidassignment.helpers.ShowSnackBar
 import com.bharath.swipeandroidassignment.presentation.adapters.OnClickListener
 import com.bharath.swipeandroidassignment.presentation.adapters.ProductsListAdapter
 import com.bharath.swipeandroidassignment.presentation.states.ListState
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.progressindicator.LinearProgressIndicator
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -39,7 +39,7 @@ class HomeFragment : Fragment(), OnClickListener {
     private lateinit var recycler: RecyclerView
     private lateinit var searchIcon: ImageView
     private lateinit var swipeLogo: ImageView
-    private lateinit var progress: LinearProgressIndicator
+    private lateinit var progress: ShimmerFrameLayout
     private lateinit var floatingActionButton: FloatingActionButton
     private lateinit var showSnackBar: ShowSnackBar
 
@@ -116,16 +116,29 @@ class HomeFragment : Fragment(), OnClickListener {
      */
     private fun setListState(state: ListState<ProductEntity>) {
         when {
-            state.isNotCached -> progress.visibility = View.VISIBLE
-            state.isLoading -> progress.visibility = View.VISIBLE
+            state.isNotCached -> {
+                progress.visibility = View.VISIBLE
+                recycler.visibility = View.GONE
+                progress.startShimmer()
+            }
+
+            state.isLoading -> {
+                progress.visibility = View.VISIBLE
+                recycler.visibility = View.GONE
+                progress.startShimmer()
+            }
+
             !state.error.isNullOrBlank() -> {
                 view?.let {
                     showSnackBar.showErrorSnack(it, state.error)
+
                 }
             }
 
             else -> {
                 progress.visibility = View.GONE
+                progress.stopShimmer()
+                recycler.visibility = View.VISIBLE
                 adapter.submitNewList(state.list)
             }
         }

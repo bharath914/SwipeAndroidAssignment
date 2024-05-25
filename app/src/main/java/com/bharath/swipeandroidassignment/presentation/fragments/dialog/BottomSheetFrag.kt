@@ -177,6 +177,7 @@ class BottomSheetFrag : BottomSheetDialogFragment(), OnClickListener {
     private fun alertDialog(onEvent: (event: InputFieldsEvents) -> Unit) {
 // dialog for selecting product type
         val alertDialog = MaterialAlertDialogBuilder(requireContext())
+        alertDialog.setTitle("Select Product Type")
         val listener = DialogInterface.OnClickListener { dialogInterface, i ->
             lifecycleScope.launch {
                 type.text = typesList[i]

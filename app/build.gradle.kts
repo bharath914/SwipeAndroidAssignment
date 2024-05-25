@@ -91,6 +91,8 @@ dependencies {
     implementation(libs.glide)
 
     implementation(libs.androidx.core.animation)
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
+
 
 
 }

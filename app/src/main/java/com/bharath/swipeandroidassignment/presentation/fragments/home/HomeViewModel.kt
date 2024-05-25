@@ -10,6 +10,7 @@ import com.bharath.swipeandroidassignment.domain.usecases.GetProductsUseCase
 import com.bharath.swipeandroidassignment.helpers.isNetworkAvailable
 import com.bharath.swipeandroidassignment.presentation.states.ListState
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
@@ -60,6 +61,8 @@ class HomeViewModel(
                         }
 
                         is Resource.Success -> {
+                            // delayed on purpose to show shimmer animation
+                            delay(1000)
                             _productsListState.update {
                                 Log.d("Products", "got the : ${resource.data} ")
                                 ListState(list = resource.data ?: emptyList())
