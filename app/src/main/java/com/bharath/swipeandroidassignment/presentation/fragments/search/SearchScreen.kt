@@ -59,6 +59,7 @@ class SearchScreen : Fragment(), OnClickListener {
      *
      */
     private fun animateSearchLabel() {
+        index = 0
         searchIllustration.visibility = View.VISIBLE
         lifecycleScope.launch {
             val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_up_fade_in)
