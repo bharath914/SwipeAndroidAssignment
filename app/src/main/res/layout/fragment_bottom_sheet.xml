@@ -56,28 +56,59 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="6dp"
-
-            android:autofillHints="name"
             android:background="@drawable/edit_text_background"
             android:fontFamily="@font/roboto_medium"
             android:hint="Price of Product"
             android:inputType="numberDecimal"
-
             android:padding="16dp"
-            android:textSize="14sp" />
+            android:textSize="14sp"
 
-        <EditText
-            android:id="@+id/input_type_of_product"
+            />
+
+        <RelativeLayout
+            android:id="@+id/selectTypeCard"
             android:layout_width="match_parent"
 
             android:layout_height="wrap_content"
             android:layout_marginVertical="6dp"
-            android:background="@drawable/edit_text_background"
-            android:fontFamily="@font/roboto_medium"
+            android:background="@drawable/card_outline"
+            app:cardBackgroundColor="@color/transparent"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="0dp">
 
-            android:hint="Type of Product"
-            android:padding="16dp"
-            android:textSize="14sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+
+                android:paddingVertical="16dp"
+
+                >
+
+                <TextView
+                    android:id="@+id/input_type"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Select Product Type"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/md_theme_primary" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/baseline_expand_more_24"
+                    app:tint="@color/md_theme_primary"
+
+                    />
+            </RelativeLayout>
+
+        </RelativeLayout>
 
 
         <EditText
@@ -100,7 +131,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/linearLayout1BottomSheet"
         android:layout_marginHorizontal="24dp"
-        android:layout_marginVertical="8dp"
+        android:layout_marginVertical="16dp"
         android:background="@drawable/details_background"
         android:orientation="vertical"
         android:padding="8dp">
@@ -127,7 +158,8 @@
                 android:layout_height="32dp"
                 android:layout_alignParentEnd="true"
                 android:layout_gravity="center_vertical|end"
-                android:src="@drawable/add_icon" />
+                android:src="@drawable/add_icon"
+                app:tint="@color/md_theme_primary" />
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -144,7 +176,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/linearLayout2BottomSheet"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:layout_marginVertical="16dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/postButton"

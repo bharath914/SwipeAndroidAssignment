@@ -7,6 +7,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
+/**
+ * In this application the local database is the single source of truth.
+ * @property ProductsRepositoryImpl implements from [ProductsRepository]
+ * Methods that are used fro updating the UI.
+ */
 class ProductsRepositoryImpl(
     private val dao: ProductsDao,
 ) : ProductsRepository {

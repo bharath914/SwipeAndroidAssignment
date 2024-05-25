@@ -6,6 +6,9 @@ import com.bharath.swipeandroidassignment.data.entity.products.ProductsItem
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/**
+ * @property SentResponse : useful for getting the sent response from the server
+ */
 @Keep
 @Serializable
 data class SentResponse(

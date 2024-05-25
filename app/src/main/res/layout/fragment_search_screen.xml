@@ -29,4 +29,46 @@
         android:layout_below="@id/searchText"
         android:layout_alignParentBottom="true"
         tools:listitem="@layout/list_item" />
+
+    <RelativeLayout
+        android:id="@+id/searchIllustrationPlaceHolder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/searchText">
+
+        <ImageView
+            android:id="@+id/searchIllustration"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/search_illustration" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@id/searchIllustration">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:alpha="0.8"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="end|center_vertical"
+                android:text="Search for "
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/search_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:alpha="0.9"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="start|center_vertical"
+                android:text="Product Name"
+                android:textColor="@color/md_theme_onSurface"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

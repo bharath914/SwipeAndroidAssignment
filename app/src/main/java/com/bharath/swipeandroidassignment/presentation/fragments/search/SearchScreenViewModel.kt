@@ -22,6 +22,7 @@ class SearchScreenViewModel(private val localProductsUseCase: LocalProductsUseCa
     private val _searchText = MutableStateFlow("")
     val searchText = _searchText.asStateFlow()
 
+    // update the search text
     fun onSearch(text: String) {
         _searchText.update { text }
     }
@@ -39,10 +40,16 @@ class SearchScreenViewModel(private val localProductsUseCase: LocalProductsUseCa
         }
     }
 
+    /**
+     * Filters the items in the initial list based on the search text input.
+     * This is crucial and safe to show "On the Go Search" Method.
+     * @param [searchText] A Flow representing the search text input.
+     * @param [_initialList] A Flow representing the initial list of items to be filtered.
+     * @return A StateFlow containing the filtered list of items.
+     */
     val filteredItems = searchText.onEach {
-
+        // Perform any side-effects with each emission of searchText here if needed
     }.combine(_initialList) { text, list ->
-
         if (text.isEmpty()) {
             emptyList()
         } else {

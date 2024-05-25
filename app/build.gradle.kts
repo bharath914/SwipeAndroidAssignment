@@ -84,11 +84,13 @@ dependencies {
 
     implementation(libs.androidx.core.splashscreen)
     implementation(kotlin("stdlib"))
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    implementation(libs.jetbrains.kotlinx.serialization.json)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.livedata.core.ktx)
 
+    implementation(libs.glide)
 
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-
+    implementation(libs.androidx.core.animation)
 
 
 }

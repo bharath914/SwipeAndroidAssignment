@@ -8,6 +8,10 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
+/**
+ * [viewModelModule] Provides ViewModels for the Fragments.
+ */
+
 val viewModelModule = module {
     viewModelOf(::HomeViewModel)
     viewModel<BottomSheetFragViewModel> {
@@ -17,6 +21,6 @@ val viewModelModule = module {
         SearchScreenViewModel(get())
     }
     viewModel<ProductDetailViewModel> {
-        ProductDetailViewModel(get(), get())
+        ProductDetailViewModel(get())
     }
 }

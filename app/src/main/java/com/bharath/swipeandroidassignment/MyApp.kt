@@ -12,6 +12,7 @@ class MyApp : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
+            // create koin dependencies.
             androidContext(this@MyApp)
             modules(appModule, repoModule, useCaseModule, viewModelModule)
             this.printLogger(level = org.koin.core.logger.Level.DEBUG)

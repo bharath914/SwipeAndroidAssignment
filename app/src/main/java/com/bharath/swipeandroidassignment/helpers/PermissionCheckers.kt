@@ -11,6 +11,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 
 class PermissionCheckers {
+    /**
+     * [checkPermissionImagePermssion] used to check permission to upload images.
+     */
     fun checkPermissionImagePermssion(context: Context): Boolean {
         val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             Manifest.permission.READ_MEDIA_IMAGES
@@ -21,6 +24,10 @@ class PermissionCheckers {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
+    /**
+     *[launchPermission] launches the permission dialog.
+     *
+     * */
     fun launchPermission(context: Context, activity: AppCompatActivity) {
         if (checkPermissionImagePermssion(context).not()) {
             val permissionActivity =

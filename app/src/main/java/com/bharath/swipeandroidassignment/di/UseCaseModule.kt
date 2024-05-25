@@ -6,6 +6,10 @@ import com.bharath.swipeandroidassignment.domain.usecases.LocalProductsUseCase
 import com.bharath.swipeandroidassignment.domain.usecases.PostProductUseCase
 import org.koin.dsl.module
 
+
+/**
+ * [useCaseModule] : Provides Usecase Dependencies for ViewModels
+ */
 val useCaseModule = module {
     single<GetProductsUseCase> {
         GetProductsUseCase(get(), get())

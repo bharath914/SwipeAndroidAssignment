@@ -5,6 +5,7 @@ import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
 
+// function required to get real path of image
 object FileUtils {
 
     fun getPath(context: Context, uri: Uri): String? {

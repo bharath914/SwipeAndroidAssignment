@@ -5,6 +5,9 @@ import androidx.room.PrimaryKey
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/**
+ * Local Entity That is Stored in Room Database
+ */
 @Entity
 @Serializable
 data class ProductEntity(

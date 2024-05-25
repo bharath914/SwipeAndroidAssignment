@@ -16,12 +16,14 @@
         <action
             android:id="@+id/action_homeFragment_to_searchScreen"
             app:destination="@id/searchScreen"
-            app:enterAnim="@anim/slide_up"
+            app:enterAnim="@android:anim/fade_in"
             app:popExitAnim="@anim/slide_down" />
         <action
             android:id="@+id/action_homeFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment"
-            app:launchSingleTop="true">
+            app:enterAnim="@android:anim/fade_in"
+            app:launchSingleTop="true"
+            app:popExitAnim="@anim/slide_down">
             <argument
                 android:name="id"
                 android:defaultValue="1"

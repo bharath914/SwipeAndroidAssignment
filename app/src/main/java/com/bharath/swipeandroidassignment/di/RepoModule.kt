@@ -8,6 +8,9 @@ import com.bharath.swipeandroidassignment.domain.repo.local.ProductsRepository
 import com.bharath.swipeandroidassignment.domain.repo.remote.RemoteProductsRepo
 import org.koin.dsl.module
 
+/**
+ * [repoModule] provides repositories for the application
+ */
 val repoModule = module {
 
     single<ProductsRepository> {

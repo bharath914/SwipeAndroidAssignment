@@ -10,6 +10,11 @@ import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
+/**
+ * @property RemoteProductsRepoImpl implements [RemoteProductsRepo]
+ * Contains Methods that are used to communicate with the given Swipe Server.
+ */
+
 class RemoteProductsRepoImpl(
     private val api: ProductsApi,
 ) : RemoteProductsRepo {

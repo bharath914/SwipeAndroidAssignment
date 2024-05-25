@@ -6,6 +6,9 @@ import com.bharath.swipeandroidassignment.data.entity.local.ProductEntity
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/**
+ * Products Item to convert JSON Response to a kotlin dataclass.
+ */
 @Keep
 @Serializable
 data class ProductsItem(
@@ -16,6 +19,9 @@ data class ProductsItem(
     @SerialName("tax") val tax: Double = 0.0,
 )
 
+/**
+ * Extensive Function to Convert Products Item to Product Entity
+ */
 fun ProductsItem.toEntity() = ProductEntity(
     image = image,
     price = price,

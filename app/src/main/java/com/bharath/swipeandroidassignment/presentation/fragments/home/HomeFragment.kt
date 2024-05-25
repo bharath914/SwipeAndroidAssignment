@@ -6,12 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,17 +25,25 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-
+/**
+ * The HomeFragment class represents the home screen of the application,
+ * displaying a list of products and handling user interactions.
+ */
 class HomeFragment : Fragment(), OnClickListener {
 
     private val viewModel: HomeViewModel by sharedViewModel()
-    private val adapter: ProductsListAdapter = ProductsListAdapter(this)
+
+    private val adapter: ProductsListAdapter = ProductsListAdapter(this, true)
+
+    // UI components
     private lateinit var recycler: RecyclerView
     private lateinit var searchIcon: ImageView
     private lateinit var swipeLogo: ImageView
     private lateinit var progress: LinearProgressIndicator
     private lateinit var floatingActionButton: FloatingActionButton
     private lateinit var showSnackBar: ShowSnackBar
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("Home", "onCreate: Called")
@@ -54,27 +59,28 @@ class HomeFragment : Fragment(), OnClickListener {
         }
     }
 
-
     override fun onCreateView(
-
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        val v = inflater.inflate(R.layout.fragment_home, container, false)
-        showSnackBar = ShowSnackBar(v.context)
-        bind(v)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        showSnackBar = ShowSnackBar(view.context)
+        bind(view)
+
+        // Collecting the state of the products list
         lifecycleScope.launch {
             viewModel.productsListState.collectLatest { state ->
                 setListState(state)
             }
         }
 
+        // Collecting the network connection status
         lifecycleScope.launch {
             viewModel.connectedToNet.collectLatest { connected ->
-                if (connected.not()) {
+                if (!connected) {
                     showSnackBar.showErrorSnack(
-                        v.rootView,
+                        view.rootView,
                         "Not Connected To Internet!! Loading Offline Content"
                     )
                 }
@@ -82,48 +88,52 @@ class HomeFragment : Fragment(), OnClickListener {
         }
 
         setOnClicks()
-        setLogo(v.context)
-        return v
+        setLogo(view.context)
+        return view
     }
 
+    /**
+     * Sets the appropriate logo based on the current theme (light or dark mode).
+     *@param context The context used to access resources.
+     */
     private fun setLogo(context: Context) {
         val currentNightMode =
             context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         when (currentNightMode) {
             Configuration.UI_MODE_NIGHT_NO -> {
-
-                swipeLogo.setImageDrawable(resources.getDrawable(R.drawable.swipe_logo_light_small))
+                swipeLogo.setImageResource(R.drawable.swipe_logo_light_small)
             }
 
             Configuration.UI_MODE_NIGHT_YES -> {
-
-                swipeLogo.setImageDrawable(resources.getDrawable(R.drawable.swipe_logo_night))
+                swipeLogo.setImageResource(R.drawable.swipe_logo_night)
             }
         }
     }
 
-
+    /**
+     * Updates the UI based on the state of the products list.
+     * @param state The current state of the products list.
+     */
     private fun setListState(state: ListState<ProductEntity>) {
-        if (state.isNotCached) {
-            progress.visibility = VISIBLE
-        } else if (state.isLoading) {
-            progress.visibility = VISIBLE
-        } else if (state.error.isNullOrBlank().not()) {
-
-
-            view?.let {
-                showSnackBar.showErrorSnack(
-                    it,
-                    "${state.error}"
-                )
-
+        when {
+            state.isNotCached -> progress.visibility = View.VISIBLE
+            state.isLoading -> progress.visibility = View.VISIBLE
+            !state.error.isNullOrBlank() -> {
+                view?.let {
+                    showSnackBar.showErrorSnack(it, state.error)
+                }
             }
-        } else {
-            progress.visibility = GONE
-            adapter.submitNewList(state.list)
+
+            else -> {
+                progress.visibility = View.GONE
+                adapter.submitNewList(state.list)
+            }
         }
     }
 
+    /**
+     * Sets click listeners for the floating action button and search icon.
+     */
     private fun setOnClicks() {
         floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_bottomSheetFrag)
@@ -133,6 +143,11 @@ class HomeFragment : Fragment(), OnClickListener {
         }
     }
 
+    /**
+     * Binds the UI components to their respective views.
+     *
+     * @param view The view containing the UI components.
+     */
     private fun bind(view: View) {
         swipeLogo = view.findViewById(R.id.SwipeLogo)
         floatingActionButton = view.findViewById(R.id.floatingActionButton)
@@ -141,12 +156,19 @@ class HomeFragment : Fragment(), OnClickListener {
         recycler = view.findViewById(R.id.recycler)
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(view.context)
-
+        recycler.setItemViewCacheSize(25)
     }
 
+    /**
+     * Handles the click events for the items in the RecyclerView.
+     *
+     * @param index The id of the clicked item.
+     */
     override fun onClick(index: Int) {
-        val saved = SavedStateHandle()
-        saved.set<Int>("Id", index)
-        findNavController().navigate(R.id.action_homeFragment_to_productDetailFragment)
+        val navController = findNavController()
+        val bundle = Bundle().apply {
+            putInt("Id", index)
+        }
+        navController.navigate(R.id.action_homeFragment_to_productDetailFragment, bundle)
     }
 }

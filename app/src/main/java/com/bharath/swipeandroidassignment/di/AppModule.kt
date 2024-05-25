@@ -12,7 +12,7 @@ const val BASE_URL = "https://app.getswipe.in/api/public/"
 
 /**
  * [appModule] = creates a module for the application to get required dependencies.
- *
+ * Provides the Required dependencies to the application
  */
 val appModule = module {
     single<ProductsApi> {

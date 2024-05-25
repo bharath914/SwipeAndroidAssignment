@@ -20,6 +20,7 @@ class ImageListAdapter(
         private val removeBtn: ImageView = itemView.findViewById(R.id.removeImageBtn)
 
         init {
+            // pass the on click
             removeBtn.setOnClickListener(this)
         }
 
