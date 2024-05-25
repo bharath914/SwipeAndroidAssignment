@@ -7,13 +7,29 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bharath.swipeandroidassignment.R
 import com.bumptech.glide.Glide
 
-class ImageListAdapter : ListAdapter<Uri, ImageListAdapter.MyViewHolder>(MyDiffUtil()) {
-    inner class MyViewHolder(view: View) : ViewHolder(view) {
+class ImageListAdapter(
+    private val listener: OnClickListener,
+) : ListAdapter<Uri, ImageListAdapter.MyViewHolder>(MyDiffUtil()) {
+    inner class MyViewHolder(view: View) : ViewHolder(view), View.OnClickListener {
         private val imageView: ImageView = view.findViewById(R.id.file_image)
+        private val removeBtn: ImageView = itemView.findViewById(R.id.removeImageBtn)
+
+        init {
+            removeBtn.setOnClickListener(this)
+        }
+
+        override fun onClick(p0: View?) {
+            val pos = adapterPosition
+            if (pos != RecyclerView.NO_POSITION) {
+                listener.onClick(pos)
+            }
+        }
+
         fun bind(uri: Uri) {
             Glide.with(itemView)
                 .load(uri)
@@ -23,6 +39,7 @@ class ImageListAdapter : ListAdapter<Uri, ImageListAdapter.MyViewHolder>(MyDiffU
 
         }
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
@@ -46,4 +63,9 @@ private class MyDiffUtil : DiffUtil.ItemCallback<Uri>() {
     override fun areContentsTheSame(oldItem: Uri, newItem: Uri): Boolean {
         return oldItem.path == newItem.path
     }
+}
+
+interface OnClickListener {
+    fun onClick(index: Int)
+
 }

@@ -35,7 +35,7 @@ class ProductsRepositoryImpl(
         }
     }
 
-    override suspend fun getProductEntity(id: String): Flow<ProductEntity> {
+    override suspend fun getProductEntity(id: Int): Flow<ProductEntity> {
         return withContext(Dispatchers.IO) {
             dao.getProductEntity(id)
         }

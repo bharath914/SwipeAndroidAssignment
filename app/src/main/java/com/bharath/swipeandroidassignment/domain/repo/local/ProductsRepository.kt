@@ -9,6 +9,6 @@ interface ProductsRepository {
     suspend fun deleteProductEntity(entity: ProductEntity)
     suspend fun checkIfEmpty(): Flow<Int>
     suspend fun clearAllProducts()
-    suspend fun getProductEntity(id: String): Flow<ProductEntity>
+    suspend fun getProductEntity(id: Int): Flow<ProductEntity>
     suspend fun getAllProductEntityList(): Flow<List<ProductEntity>>
 }

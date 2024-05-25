@@ -7,20 +7,23 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bharath.swipeandroidassignment.R
+import com.bharath.swipeandroidassignment.presentation.adapters.OnClickListener
 import com.bharath.swipeandroidassignment.presentation.adapters.ProductsListAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SearchScreen : Fragment() {
+class SearchScreen : Fragment(), OnClickListener {
 
 
     private val viewModel: SearchScreenViewModel by viewModel()
-    private val adapter: ProductsListAdapter = ProductsListAdapter()
+    private val adapter: ProductsListAdapter = ProductsListAdapter(this)
     private lateinit var recycler: RecyclerView
     private lateinit var searchText: TextView
 
@@ -52,5 +55,11 @@ class SearchScreen : Fragment() {
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(view.context)
         searchText = view.findViewById(R.id.searchText)
+    }
+
+    override fun onClick(index: Int) {
+        val savedState = SavedStateHandle()
+        savedState["Id"] = index
+        findNavController().navigate(R.id.action_searchScreen_to_productDetailFragment)
     }
 }

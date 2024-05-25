@@ -2,6 +2,7 @@ package com.bharath.swipeandroidassignment.data.entity.products
 
 
 import androidx.annotation.Keep
+import com.bharath.swipeandroidassignment.data.entity.local.ProductEntity
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -13,4 +14,12 @@ data class ProductsItem(
     @SerialName("product_name") val product_name: String = "",
     @SerialName("product_type") val product_type: String = "",
     @SerialName("tax") val tax: Double = 0.0,
+)
+
+fun ProductsItem.toEntity() = ProductEntity(
+    image = image,
+    price = price,
+    productName = product_name,
+    productType = product_type,
+    tax = tax
 )

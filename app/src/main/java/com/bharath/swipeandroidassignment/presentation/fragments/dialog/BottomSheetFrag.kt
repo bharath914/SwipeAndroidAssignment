@@ -18,23 +18,30 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import com.bharath.swipeandroidassignment.R
+import com.bharath.swipeandroidassignment.helpers.PermissionCheckers
 import com.bharath.swipeandroidassignment.presentation.adapters.ImageListAdapter
+import com.bharath.swipeandroidassignment.presentation.adapters.OnClickListener
 import com.bharath.swipeandroidassignment.presentation.events.InputFieldsEvents
+import com.bharath.swipeandroidassignment.presentation.fragments.home.HomeViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class BottomSheetFrag : BottomSheetDialogFragment() {
+class BottomSheetFrag : BottomSheetDialogFragment(), OnClickListener {
     private val viewModel: BottomSheetFragViewModel by viewModel()
+    private val homeViewModel: HomeViewModel by sharedViewModel()
     private lateinit var name: TextView
     private lateinit var price: TextView
     private lateinit var type: TextView
     private lateinit var tax: TextView
     private lateinit var button: MaterialButton
+    private lateinit var sendingProgress: CircularProgressIndicator
     private lateinit var imagesRecycler: RecyclerView
-    private val adapter = ImageListAdapter()
+    private val adapter = ImageListAdapter(this@BottomSheetFrag)
     private lateinit var addImageButton: ImageView
 
 
@@ -60,10 +67,25 @@ class BottomSheetFrag : BottomSheetDialogFragment() {
         }
         lifecycleScope.launch {
             viewModel.sendState.collectLatest {
-                if (it.sentData != null && it.sentData.success) {
+
+                if (it.isSending) {
+                    button.visibility = View.GONE
+                    sendingProgress.visibility = View.VISIBLE
+
+                } else if (it.sentData != null && it.sentData.success) {
+                    homeViewModel.resetIsCalled()
+                    homeViewModel.getData(true, v.context)
+
+
                     findNavController().navigateUp()
                     Toast.makeText(view?.context, "Inserted Successfully", Toast.LENGTH_SHORT)
                         .show()
+
+
+                } else if (it.error.isNullOrBlank().not()) {
+                    button.visibility = View.VISIBLE
+                    sendingProgress.visibility = View.GONE
+                    Toast.makeText(v.context, "Cannot Post Now!", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -80,8 +102,19 @@ class BottomSheetFrag : BottomSheetDialogFragment() {
         button.setOnClickListener {
             viewModel.onEvent(InputFieldsEvents.OnSentClick(view.context))
         }
+        val permissionUtil = PermissionCheckers()
         addImageButton.setOnClickListener {
-            startActivityForResult(pickMultipleMediaIntent, 22)
+            if (
+                permissionUtil.checkPermissionImagePermssion(requireContext())
+            ) {
+                startActivityForResult(pickMultipleMediaIntent, 22)
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "Please Grant Media Permission in settings",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 
@@ -132,12 +165,15 @@ class BottomSheetFrag : BottomSheetDialogFragment() {
 
     }
 
+    override fun onClick(index: Int) {
+        viewModel.onEvent(InputFieldsEvents.RemoveImage(index))
+    }
 
     private fun bind(view: View) {
         name = view.findViewById(R.id.input_product_name)
         price = view.findViewById(R.id.input_price_of_product)
         type = view.findViewById(R.id.input_type_of_product)
-
+        sendingProgress = view.findViewById(R.id.sendingProgress)
         tax = view.findViewById(R.id.input_tax_percentage)
         button = view.findViewById(R.id.postButton)
         addImageButton = view.findViewById(R.id.addImageFiles)

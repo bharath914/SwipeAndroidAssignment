@@ -28,47 +28,56 @@ class HomeViewModel(
     private val _connectedToNet = MutableStateFlow(true)
     val connectedToNet = _connectedToNet.asStateFlow()
 
+    private val isCalled = MutableStateFlow(false)
+
+
+    fun resetIsCalled() {
+        isCalled.value = false
+    }
+
     fun getData(isRefresh: Boolean = false, context: Context) {
+        if (isCalled.value.not()) {
 
 
-        viewModelScope.launch(IO) {
-            val connected = isNetworkAvailable(context)
-            if (!connected) {
-                _connectedToNet.update { false }
-            }
-
-
-
-            getProductsUseCase(isRefresh && connected).onEach { resource ->
-                when (resource) {
-                    is Resource.Error -> {
-                        _productsListState.update {
-                            ListState(error = resource.message)
-                        }
-                    }
-
-                    is Resource.Loading -> {
-                        _productsListState.update {
-                            ListState(isLoading = true)
-                        }
-                    }
-
-                    is Resource.Success -> {
-                        _productsListState.update {
-                            Log.d("Products", "got the : ${resource.data} ")
-                            ListState(list = resource.data ?: emptyList())
-
-                        }
-                    }
-
-                    is Resource.NotCached -> {
-                        _productsListState.update {
-                            ListState(isNotCached = true)
-                        }
-                    }
-
+            viewModelScope.launch(IO) {
+                val connected = isNetworkAvailable(context)
+                if (!connected) {
+                    _connectedToNet.update { false }
                 }
-            }.collect()
+
+                getProductsUseCase(isRefresh && connected).onEach { resource ->
+                    when (resource) {
+                        is Resource.Error -> {
+                            _productsListState.update {
+                                ListState(error = resource.message)
+                            }
+                        }
+
+                        is Resource.Loading -> {
+                            _productsListState.update {
+                                ListState(isLoading = true)
+                            }
+                        }
+
+                        is Resource.Success -> {
+                            _productsListState.update {
+                                Log.d("Products", "got the : ${resource.data} ")
+                                ListState(list = resource.data ?: emptyList())
+
+                            }
+                        }
+
+                        is Resource.NotCached -> {
+                            _productsListState.update {
+                                ListState(isNotCached = true)
+                            }
+                        }
+
+                    }
+                }.collect()
+            }.invokeOnCompletion {
+                isCalled.value = true
+            }
         }
 
     }

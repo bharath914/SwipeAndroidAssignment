@@ -55,12 +55,13 @@
             android:id="@+id/input_price_of_product"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_marginVertical="6dp"
+
             android:autofillHints="name"
             android:background="@drawable/edit_text_background"
             android:fontFamily="@font/roboto_medium"
             android:hint="Price of Product"
+            android:inputType="numberDecimal"
 
             android:padding="16dp"
             android:textSize="14sp" />
@@ -116,7 +117,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_gravity="center_vertical|start"
                 android:fontFamily="@font/roboto_medium"
-                android:text="Add Images"
+                android:text="Add Images (Optional)"
 
                 android:textSize="20sp" />
 
@@ -138,19 +139,36 @@
             tools:listitem="@layout/images_list_item" />
     </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/postButton"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/linearLayout2BottomSheet"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="8dp"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="8dp"
-        android:text="Post"
-        android:textColor="@color/md_theme_onPrimary"
-        app:backgroundTint="@color/md_theme_primary" />
+        android:layout_gravity="center_horizontal">
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/postButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="8dp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="8dp"
+            android:text="Post"
+            android:textColor="@color/md_theme_onPrimary"
+            app:backgroundTint="@color/md_theme_primary" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+
+            android:id="@+id/sendingProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginHorizontal="64dp"
+            android:indeterminate="true"
+            android:visibility="gone"
+
+            />
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -12,4 +12,6 @@ sealed class InputFieldsEvents {
     data class OnFilesAdd(val files: List<Uri>) : InputFieldsEvents()
 
     data class OnSentClick(val context: Context) : InputFieldsEvents()
+
+    data class RemoveImage(val index: Int) : InputFieldsEvents()
 }

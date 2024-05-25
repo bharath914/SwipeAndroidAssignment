@@ -74,7 +74,16 @@ class BottomSheetFragViewModel(
                             events.context
                         ).onEach { state ->
                             _sendState.update { state }
+
                         }.collect()
+                    }
+                }
+
+                is InputFieldsEvents.RemoveImage -> {
+                    val updated = _imageList.value.toMutableList()
+                    updated.removeAt(events.index)
+                    _imageList.update {
+                        updated
                     }
                 }
             }

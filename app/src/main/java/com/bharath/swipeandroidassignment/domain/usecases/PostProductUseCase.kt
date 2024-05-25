@@ -1,7 +1,9 @@
 package com.bharath.swipeandroidassignment.domain.usecases
 
 import android.content.Context
+import android.util.Log
 import com.bharath.swipeandroidassignment.data.entity.sent.SentResponse
+import com.bharath.swipeandroidassignment.domain.repo.local.ProductsRepository
 import com.bharath.swipeandroidassignment.domain.repo.remote.RemoteProductsRepo
 import com.bharath.swipeandroidassignment.helpers.FileUtils
 import com.bharath.swipeandroidassignment.presentation.states.InputFieldsUIState
@@ -10,12 +12,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
-class PostProductUseCase(private val remoteProductsRepo: RemoteProductsRepo) {
+class PostProductUseCase(
+    private val remoteProductsRepo: RemoteProductsRepo,
+    private val localRepository: ProductsRepository,
+) {
     suspend operator fun invoke(
         uiState: InputFieldsUIState,
         context: Context,
@@ -42,6 +46,9 @@ class PostProductUseCase(private val remoteProductsRepo: RemoteProductsRepo) {
                 tax = tax,
                 files = fileParts
             )
+            if (sendState.success) {
+                Log.d("Product", "invoke: $sendState ")
+            }
             emit(SendState(sentData = sendState))
 
         } catch (e: Exception) {

@@ -7,10 +7,26 @@
     app:cardCornerRadius="50dp"
     app:cardElevation="0dp">
 
-    <ImageView
-        android:id="@+id/file_image"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitCenter"
-        android:src="@drawable/picture" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/file_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="false"
+            android:scaleType="fitCenter"
+            android:src="@drawable/picture" />
+
+        <ImageView
+            android:id="@+id/removeImageBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="8dp"
+            android:padding="4dp"
+            android:src="@drawable/baseline_clear_24" />
+    </RelativeLayout>
+
 </androidx.cardview.widget.CardView>

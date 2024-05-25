@@ -32,11 +32,12 @@
                     android:layout_weight="1">
 
                     <ImageView
-                        android:layout_width="60dp"
+                        android:id="@+id/SwipeLogo"
+                        android:layout_width="90dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center_vertical|start"
-                        android:src="@drawable/swipelogo"
-
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/swipe_logo_light_small"
 
                         />
                 </RelativeLayout>
@@ -89,6 +90,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_margin="24dp"
-            android:src="@drawable/add_icon" />
+            android:background="@color/md_theme_primary"
+            android:src="@drawable/add_icon"
+            app:backgroundTint="@color/md_theme_primaryContainer" />
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

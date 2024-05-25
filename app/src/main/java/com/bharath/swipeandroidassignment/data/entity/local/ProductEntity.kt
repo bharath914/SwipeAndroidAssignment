@@ -11,11 +11,11 @@ data class ProductEntity(
     @SerialName("id")
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    @SerialName("image") val image: String,
-    @SerialName("price") val price: Double,
-    @SerialName("product_name") val productName: String,
-    @SerialName("product_type") val productType: String,
-    @SerialName("tax") val tax: Double,
+    @SerialName("image") val image: String = "",
+    @SerialName("price") val price: Double = 0.0,
+    @SerialName("product_name") val productName: String = "",
+    @SerialName("product_type") val productType: String = "",
+    @SerialName("tax") val tax: Double = 0.0,
 )
 
 fun ProductEntity.doesMatchesQuery(query: String): Boolean {
