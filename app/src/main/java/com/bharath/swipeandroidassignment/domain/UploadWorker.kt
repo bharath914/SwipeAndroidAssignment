@@ -68,8 +68,10 @@ class UploadWorker(
                 // if it's success then close the bottom sheet.
                 if (sendState.success) {
                     Log.d("Product", "invoke: $sendState ")
-                    notification.cancelNotification(productName.length)
-                    notification.postSuccessNotification("Successful!! Please Refresh the List")
+                    if (permissionCheckers.checkNotificationPermission(context)) {
+                        notification.cancelNotification(productName.length)
+                        notification.postSuccessNotification("Successful!! Please Refresh the List")
+                    }
                     return Result.success()
                 } else {
                     return Result.retry()
