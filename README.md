@@ -1,6 +1,13 @@
 ### Project Architecture
 Please read this Readme File before evaluating codebase.
 
+### How to use this App.
+    1.Install the app from the below drive link.
+    2.Enable Notification and File Permission
+    3.Upload New Data By Clicking the Floating Action Button.
+    4.You will get notified if its uploaded to server
+    5.Refresh The List to get new Data.
+
 **Install App From here** : https://drive.google.com/file/d/17EtJ7v4WqX9yyhlCP9SktEuRtKGEf0ZR/view?usp=drive_link
 
 MVVM + CLEAN Principles
@@ -9,6 +16,7 @@ The Code base is neatly **Documented**
 
 In this project I used
 - *Koin* for depedency Injection
+- *Work Manager* for uploading data to Server.
 - *Room* for local caching of data
 - *shimmer* for showing the loading progress (note : I had delayed responses from server for 1 sec to show shimmer)
 - *Diff Util* to efficiently Update the data
@@ -30,6 +38,7 @@ In this project I used
     - Repository
     - Model
     - Usecases
+    - Workers
 - *helpers*  
     - Extensive Functions,
     -  Utils
