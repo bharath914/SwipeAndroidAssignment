@@ -15,7 +15,7 @@ val useCaseModule = module {
         GetProductsUseCase(get(), get())
     }
     single<PostProductUseCase> {
-        PostProductUseCase(get(), get())
+        PostProductUseCase()
     }
     single<LocalProductsUseCase> {
         LocalProductsUseCase(get())

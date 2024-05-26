@@ -91,7 +91,11 @@ dependencies {
     implementation(libs.glide)
 
     implementation(libs.androidx.core.animation)
-    implementation("com.facebook.shimmer:shimmer:0.5.0")
+    implementation(libs.shimmer)
+
+    implementation(libs.androidx.work.runtime.ktx)
+// https://mvnrepository.com/artifact/io.insert-koin/koin-androidx-workmanager
+    implementation("io.insert-koin:koin-androidx-workmanager:3.6.0-wasm-alpha2")
 
 
 

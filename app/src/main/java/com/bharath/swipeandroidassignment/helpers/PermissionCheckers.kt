@@ -24,6 +24,35 @@ class PermissionCheckers {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
+    fun checkNotificationPermission(context: Context): Boolean {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val permission = Manifest.permission.POST_NOTIFICATIONS
+            return ContextCompat.checkSelfPermission(
+                context,
+                permission
+            ) == PackageManager.PERMISSION_GRANTED
+        } else return true
+    }
+
+    fun launchNotificationPermission(context: Context, activity: AppCompatActivity) {
+        if (checkNotificationPermission(context).not()) {
+            val permissionActivity =
+                activity.registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+                    if (isGranted) {
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Grant Notification Permission For Posting Notifications",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+            permissionActivity.launch(Manifest.permission.POST_NOTIFICATIONS)
+
+        }
+    }
+
     /**
      *[launchPermission] launches the permission dialog.
      *

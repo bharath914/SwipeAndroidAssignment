@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bharath.swipeandroidassignment.R
 import com.bharath.swipeandroidassignment.data.entity.local.ProductEntity
 import com.bharath.swipeandroidassignment.helpers.ShowSnackBar
@@ -21,6 +22,7 @@ import com.bharath.swipeandroidassignment.presentation.adapters.ProductsListAdap
 import com.bharath.swipeandroidassignment.presentation.states.ListState
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -42,6 +44,7 @@ class HomeFragment : Fragment(), OnClickListener {
     private lateinit var progress: ShimmerFrameLayout
     private lateinit var floatingActionButton: FloatingActionButton
     private lateinit var showSnackBar: ShowSnackBar
+    private lateinit var swipeRefresh: SwipeRefreshLayout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -158,6 +161,21 @@ class HomeFragment : Fragment(), OnClickListener {
         searchIcon.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_searchScreen)
         }
+        swipeRefresh.setOnRefreshListener {
+            refresh()
+        }
+    }
+
+    private fun refresh() {
+        lifecycleScope.launch {
+
+            swipeRefresh.isRefreshing = true
+
+            delay(1200)
+            viewModel.resetIsCalled()
+            viewModel.getData(true, requireContext())
+            swipeRefresh.isRefreshing = false
+        }
     }
 
     /**
@@ -171,6 +189,7 @@ class HomeFragment : Fragment(), OnClickListener {
         searchIcon = view.findViewById(R.id.searchIcon)
         progress = view.findViewById(R.id.progressBar)
         recycler = view.findViewById(R.id.recycler)
+        swipeRefresh = view.findViewById(R.id.SwipeRefreshLayout)
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(view.context)
         recycler.setItemViewCacheSize(25)

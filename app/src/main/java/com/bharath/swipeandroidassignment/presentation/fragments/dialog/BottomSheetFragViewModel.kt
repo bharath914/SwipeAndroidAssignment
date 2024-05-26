@@ -5,6 +5,9 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
+import com.bharath.swipeandroidassignment.data.entity.products.ProductsItem
 import com.bharath.swipeandroidassignment.data.entity.sent.SentResponse
 import com.bharath.swipeandroidassignment.domain.usecases.PostProductUseCase
 import com.bharath.swipeandroidassignment.presentation.events.InputFieldsEvents
@@ -14,10 +17,10 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 class BottomSheetFragViewModel(
     private val postProductUseCase: PostProductUseCase,
@@ -80,13 +83,50 @@ class BottomSheetFragViewModel(
 
                             if (_uiState.value.tax.toFloat() <= 100f) {
 
+                                val uid = UUID.nameUUIDFromBytes(_uiState.value.productName.toByteArray())
                                 postProductUseCase(
+                                    uid,
                                     _uiState.value.copy(files = _imageList.value),
                                     events.context
-                                ).onEach { state ->
-                                    _sendState.update { state }
+                                )
+                                val workManager = WorkManager.getInstance(events.context)
+                                launch(IO) {
+                                    workManager.getWorkInfoByIdFlow(uid).collectLatest {
+                                        when (it.state) {
+                                            WorkInfo.State.ENQUEUED -> {
+                                                _sendState.update {
+                                                    SendState(
+                                                        isSending = true
+                                                    )
+                                                }
+                                            }
 
-                                }.collect()
+                                            WorkInfo.State.RUNNING -> {}
+                                            WorkInfo.State.SUCCEEDED -> {
+                                                _sendState.update {
+                                                    SendState(
+                                                        sentData = SentResponse(
+                                                            message = "Sent Successfully",
+                                                            success = true,
+                                                            productId = 0,
+                                                            productDetails = ProductsItem()
+                                                        )
+                                                    )
+                                                }
+                                            }
+
+                                            WorkInfo.State.FAILED -> {
+                                                _sendState.update {
+                                                    SendState(error = "Cannot Post Now!!")
+                                                }
+                                            }
+
+                                            WorkInfo.State.BLOCKED -> {}
+                                            WorkInfo.State.CANCELLED -> {}
+                                        }
+                                    }
+                                }
+
                             } else {
                                 launch(Main) {
                                     Toast.makeText(

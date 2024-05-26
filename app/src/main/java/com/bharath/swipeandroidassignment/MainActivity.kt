@@ -12,6 +12,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import com.bharath.swipeandroidassignment.helpers.NotificationUtil
 import com.bharath.swipeandroidassignment.helpers.PermissionCheckers
 import com.bharath.swipeandroidassignment.helpers.isNetworkAvailable
 import kotlinx.coroutines.launch
@@ -29,8 +30,11 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         noInternetDialog()
+        val notificationUtil = NotificationUtil(this)
+        notificationUtil.createNotificationChannel()
         val permissionCheckers = PermissionCheckers()
         permissionCheckers.launchPermission(this, this)
+        permissionCheckers.launchNotificationPermission(this, this)
 
         // show the splash screen exit animation
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
