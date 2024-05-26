@@ -1,5 +1,18 @@
+
+### Mockups
+**All Functionalities**
+![Swipe Mockup 1](https://github.com/bharath914/SwipeAndroidAssignment/assets/98139751/0280e768-cdb2-477d-8821-e958875137bf)
+**Powered By Work Manager**
+![Swipe Mockup2](https://github.com/bharath914/SwipeAndroidAssignment/assets/98139751/64264654-a1e6-4afc-b9da-883518bf297c)
+
+
+
+
+
 ### Project Architecture
 Please read this Readme File before evaluating codebase.
+
+
 
 ### How to use this App.
     1.Install the app from the below drive link.
@@ -47,6 +60,7 @@ In this project I used
     -  ViewModels
     -  States
     -  Events
+
 
 
 
