@@ -8,7 +8,7 @@ Please read this Readme File before evaluating codebase.
     4.You will get notified if its uploaded to server
     5.Refresh The List to get new Data.
 
-**Install App From here** : https://drive.google.com/file/d/17EtJ7v4WqX9yyhlCP9SktEuRtKGEf0ZR/view?usp=drive_link
+**Install App From here** : [Drive link](https://drive.google.com/file/d/1bqIlo-6621b7geW74WrydFFYX4I4Vt4y/view?usp=drive_link)
 
 MVVM + CLEAN Principles
 
