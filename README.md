@@ -1,4 +1,6 @@
 
+PS : Please don't copy this assignment but you can take this as reference purpose.
+
 ### Mockups
 **All Functionalities**
 ![Swipe Mockup 1](https://github.com/bharath914/SwipeAndroidAssignment/assets/98139751/0280e768-cdb2-477d-8821-e958875137bf)
