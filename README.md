@@ -68,8 +68,6 @@ In this project I used
 ### Contact Information 
 email : bharathayinala@gmail.com
 
-phone : +917093219037
-
 <a href="https://linkedin.com/in/bharathayinala7" target="blank"><img align="center"
             src="https://logopng.com.br/logos/linkedin-83.png"
             width="40" /></a>
